@@ -19,12 +19,9 @@ import android.widget.Toast;
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
-import com.androidnetworking.interfaces.JSONArrayRequestListener;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
-import com.ibnsaad.thedcc.Network.Api;
-import com.ibnsaad.thedcc.Network.AuthHelper;
+import com.ibnsaad.thedcc.network.AuthHelper;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -36,9 +33,9 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class RegisterActivity extends AppCompatActivity {
+public class OldRegisterActivity extends AppCompatActivity {
 
-    private static final String TAG = RegisterActivity.class.getSimpleName();
+    private static final String TAG = OldRegisterActivity.class.getSimpleName();
 
     @BindView(R.id.input_name)
     EditText mNameText;
@@ -91,7 +88,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Finish the registration screen and return to the Login activity
-                Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+                Intent intent = new Intent(getApplicationContext(), OldLoginActivity.class);
                 startActivity(intent);
                 finish();
                 overridePendingTransition(R.anim.push_left, R.anim.push_left_out);
@@ -113,8 +110,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         mSignupButton.setEnabled(false);
 
-        final ProgressDialog progressDialog = new ProgressDialog(RegisterActivity.this,
-                R.style.AppTheme_Dark_Dialog);
+        final ProgressDialog progressDialog = new ProgressDialog(OldRegisterActivity.this);
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("Creating Account...");
         progressDialog.show();
@@ -262,7 +258,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                new DatePickerDialog(RegisterActivity.this, date, myCalendar
+                new DatePickerDialog(OldRegisterActivity.this, date, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
@@ -315,9 +311,9 @@ public class RegisterActivity extends AppCompatActivity {
                     public void onResponse(JSONObject response) {
                         // do anything with response
 
-//                        Toast.makeText(RegisterActivity.this, "Done Register",
+//                        Toast.makeText(OldRegisterActivity.this, "Done Register",
 //                                Toast.LENGTH_SHORT).show();
-                       // startActivity(new Intent(RegisterActivity.this,MainActivity.class));
+                       // startActivity(new Intent(OldRegisterActivity.this,MainActivity.class));
 
                         loginWithNetworkFaster(userName, password);
                     }
@@ -360,10 +356,10 @@ public class RegisterActivity extends AppCompatActivity {
                             JSONObject object=response.getJSONObject("user");
                             int id=object.getInt("id");
                             saveSessionDetails( token,id);
-                            Toast.makeText(RegisterActivity.this, "Done Register",
+                            Toast.makeText(OldRegisterActivity.this, "Done Register",
                                 Toast.LENGTH_SHORT).show();
                         } catch (JSONException e) {
-                            Toast.makeText(RegisterActivity.this,
+                            Toast.makeText(OldRegisterActivity.this,
                                     "some thing happen register later  ",
                                     Toast.LENGTH_SHORT).show();
                             e.printStackTrace();

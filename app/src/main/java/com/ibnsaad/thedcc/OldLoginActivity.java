@@ -16,8 +16,7 @@ import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
-import com.ibnsaad.thedcc.Network.AuthHelper;
-import com.ibnsaad.thedcc.Network.Token;
+import com.ibnsaad.thedcc.network.AuthHelper;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,9 +24,9 @@ import org.json.JSONObject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class LoginActivity extends AppCompatActivity {
+public class OldLoginActivity extends AppCompatActivity {
 
-    private static final String TAG = "LoginActivity";
+    private static final String TAG = "OldLoginActivity";
     private static final int REQUEST_SIGNUP = 0;
 
     @BindView(R.id.input_email)
@@ -65,8 +64,8 @@ public class LoginActivity extends AppCompatActivity {
             mSignupLink.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(LoginActivity.this,
-                            RegisterActivity.class);
+                    Intent intent = new Intent(OldLoginActivity.this,
+                            OldRegisterActivity.class);
                     startActivityForResult(intent, REQUEST_SIGNUP);
                     finish();
                     overridePendingTransition(R.anim.push_left,
@@ -89,8 +88,7 @@ public class LoginActivity extends AppCompatActivity {
         }
         mLoginButton.setEnabled(false);
 
-        final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this,
-                R.style.AppTheme_Dark_Dialog);
+        final ProgressDialog progressDialog = new ProgressDialog(OldLoginActivity.this);
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("Authenticating...");
         progressDialog.show();
@@ -193,11 +191,11 @@ public class LoginActivity extends AppCompatActivity {
                             //Log.d("id",String.valueOf(id));
                                 saveSessionDetails( token,id);
 
-                           // Toast.makeText(LoginActivity.this, ""+mAuthHelper.getId(), Toast.LENGTH_SHORT).show();
-                            Toast.makeText(LoginActivity.this, "Login done... ",
+                           // Toast.makeText(OldLoginActivity.this, ""+mAuthHelper.getId(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(OldLoginActivity.this, "Login done... ",
                                     Toast.LENGTH_SHORT).show();
                         } catch (JSONException e) {
-                            Toast.makeText(LoginActivity.this,
+                            Toast.makeText(OldLoginActivity.this,
                                     "JSONException "+e.getMessage(),
                                     Toast.LENGTH_SHORT).show();
                             e.printStackTrace();
@@ -206,7 +204,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     @Override
                     public void onError(ANError anError) {
-                        Toast.makeText(LoginActivity.this, "Can't Login Now..."
+                        Toast.makeText(OldLoginActivity.this, "Can't Login Now..."
                                         +anError.getErrorBody(),
                                 Toast.LENGTH_SHORT).show();
                     }

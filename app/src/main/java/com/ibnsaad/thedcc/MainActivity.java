@@ -15,9 +15,9 @@ import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.ParsedRequestListener;
-import com.ibnsaad.thedcc.Adapter.UsersAdapter;
-import com.ibnsaad.thedcc.Model.Users;
-import com.ibnsaad.thedcc.Network.AuthHelper;
+import com.ibnsaad.thedcc.adapter.UsersAdapter;
+import com.ibnsaad.thedcc.model.Users;
+import com.ibnsaad.thedcc.network.AuthHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         if (mAuthHelper.isLoggedIn()){
             getAllUser();
         }else {
-            startActivity(new Intent(this,LoginActivity.class));
+            startActivity(new Intent(this, OldLoginActivity.class));
         }
 
 
@@ -124,6 +124,6 @@ public class MainActivity extends AppCompatActivity {
     private void logout() {
 
         mAuthHelper.clear();
-        startActivity(new Intent(this,LoginActivity.class));
+        startActivity(new Intent(this, OldLoginActivity.class));
     }
 }
