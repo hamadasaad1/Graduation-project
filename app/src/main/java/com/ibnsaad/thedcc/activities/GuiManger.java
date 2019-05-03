@@ -1,12 +1,9 @@
-package com.yelloco.sdk.GUI;
+package com.ibnsaad.thedcc.activities;
 
 import android.app.Activity;
-import android.app.ActivityManager;
-import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 
-import com.yelloco.sdk.MainActivity;
 
 public class GuiManger {
 
@@ -16,6 +13,7 @@ public class GuiManger {
     private FragmentManager fragmentManager;
 
     private GuiManger() {
+
     }
 
     public static GuiManger getInstance() {
@@ -37,7 +35,8 @@ public class GuiManger {
 
     public void setCurrFragment(Fragment curr_fragment) {
         currFragment = curr_fragment;
-        MainActivity.update();
+
+
     }
 
     public void setActivity(Activity activity) {

@@ -1,4 +1,4 @@
-package com.ibnsaad.thedcc.Adapter;
+package com.ibnsaad.thedcc.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import com.ibnsaad.thedcc.DetailsActivity;
 import com.ibnsaad.thedcc.R;
-import com.ibnsaad.thedcc.Model.Users;
+import com.ibnsaad.thedcc.model.Users;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

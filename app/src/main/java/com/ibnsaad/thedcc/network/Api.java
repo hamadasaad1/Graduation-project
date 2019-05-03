@@ -1,4 +1,4 @@
-package com.ibnsaad.thedcc.Network;
+package com.ibnsaad.thedcc.network;
 
 import android.app.Application;
 

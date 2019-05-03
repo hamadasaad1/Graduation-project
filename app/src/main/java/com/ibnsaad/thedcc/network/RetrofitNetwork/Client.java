@@ -1,8 +1,8 @@
-package com.ibnsaad.thedcc.Network.RetrofitNetwork;
+package com.ibnsaad.thedcc.network.RetrofitNetwork;
 
 import android.content.Context;
 
-import com.ibnsaad.thedcc.Network.AuthHelper;
+import com.ibnsaad.thedcc.network.AuthHelper;
 
 import java.io.IOException;
 

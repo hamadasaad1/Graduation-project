@@ -1,4 +1,4 @@
-package com.cv.store.listeners;
+package com.ibnsaad.thedcc.listeners;
 
 public interface ConnectivityListener {
     void getConnectionType(String connectionType);
