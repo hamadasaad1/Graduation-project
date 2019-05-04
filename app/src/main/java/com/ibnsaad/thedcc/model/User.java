@@ -3,7 +3,7 @@ package com.ibnsaad.thedcc.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Users {
+public class User {
 
     @SerializedName("id")
     @Expose
@@ -38,9 +38,25 @@ public class Users {
     @SerializedName("photoUrl")
     @Expose
     private String photoUrl;
-
+    public boolean progress = false;
     public Integer getId() {
         return id;
+    }
+
+    public User(boolean progress) {
+        this.progress = progress;
+    }
+
+    public User(String knownAs) {
+        this.knownAs = knownAs;
+    }
+
+    public boolean isProgress() {
+        return progress;
+    }
+
+    public void setProgress(boolean progress) {
+        this.progress = progress;
     }
 
     public void setId(Integer id) {
@@ -119,7 +135,7 @@ public class Users {
         this.country = country;
     }
 
-    public Object getPhotoUrl() {
+    public String getPhotoUrl() {
         return photoUrl;
     }
 

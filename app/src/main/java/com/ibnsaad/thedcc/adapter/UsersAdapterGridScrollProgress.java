@@ -6,16 +6,19 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.ibnsaad.thedcc.R;
 import com.ibnsaad.thedcc.model.User;
 import com.ibnsaad.thedcc.utils.Tools;
+import com.ibnsaad.thedcc.widget.ViewLoadingDotsGrow;
+import com.mikhaellopez.circularimageview.CircularImageView;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class AdapterGridScrollProgress extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class UsersAdapterGridScrollProgress extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private final int VIEW_ITEM = 1;
     private final int VIEW_PROGRESS = 0;
@@ -28,45 +31,21 @@ public class AdapterGridScrollProgress extends RecyclerView.Adapter<RecyclerView
     private Context ctx;
     private OnItemClickListener mOnItemClickListener;
 
-    public interface OnItemClickListener {
-        void onItemClick(View view, User obj, int position);
+    public UsersAdapterGridScrollProgress(Context context, int item_per_display, List<User> items) {
+        this.items = items;
+        this.item_per_display = item_per_display;
+        ctx = context;
     }
 
     public void setOnItemClickListener(final OnItemClickListener mItemClickListener) {
         this.mOnItemClickListener = mItemClickListener;
     }
 
-    public AdapterGridScrollProgress(Context context, int item_per_display, List<User> items) {
-        this.items = items;
-        this.item_per_display = item_per_display;
-        ctx = context;
-    }
-
-    public class OriginalViewHolder extends RecyclerView.ViewHolder {
-        public ImageView image;
-        public View lyt_parent;
-
-        public OriginalViewHolder(View v) {
-            super(v);
-            image = (ImageView) v.findViewById(R.id.image);
-            lyt_parent = (View) v.findViewById(R.id.lyt_parent);
-        }
-    }
-
-    public static class ProgressViewHolder extends RecyclerView.ViewHolder {
-        public ProgressBar progress_bar;
-
-        public ProgressViewHolder(View v) {
-            super(v);
-            progress_bar = (ProgressBar) v.findViewById(R.id.progress_bar);
-        }
-    }
-
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         RecyclerView.ViewHolder vh;
         if (viewType == VIEW_ITEM) {
-            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_grid_image_progres, parent, false);
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_user_item, parent, false);
             vh = new OriginalViewHolder(v);
         } else {
             View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_progress, parent, false);
@@ -81,16 +60,17 @@ public class AdapterGridScrollProgress extends RecyclerView.Adapter<RecyclerView
         final User s = items.get(position);
         if (holder instanceof OriginalViewHolder) {
             OriginalViewHolder view = (OriginalViewHolder) holder;
-            Tools.displayImageOriginal(ctx, view.image, s.getPhotoUrl());
-            view.lyt_parent.setOnClickListener(new View.OnClickListener() {
+//            Tools.displayImageOriginal(ctx, view.image, s.getPhotoUrl());
+            view.parent.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     if (mOnItemClickListener == null) return;
                     mOnItemClickListener.onItemClick(view, s, position);
                 }
             });
+            view.user_name.setText(s.getKnownAs());
         } else {
-            ((ProgressViewHolder) holder).progress_bar.setIndeterminate(true);
+
         }
 
     }
@@ -111,7 +91,7 @@ public class AdapterGridScrollProgress extends RecyclerView.Adapter<RecyclerView
         super.onAttachedToRecyclerView(recyclerView);
     }
 
-    public void insertData(List<ProgressImage> items) {
+    public void insertData(List<User> items) {
         setLoaded();
         int positionStart = getItemCount();
         int itemCount = items.size();
@@ -131,7 +111,7 @@ public class AdapterGridScrollProgress extends RecyclerView.Adapter<RecyclerView
 
     public void setLoading() {
         if (getItemCount() != 0) {
-            this.items.add(new ProgressImage(true));
+            this.items.add(new User(true));
             notifyItemInserted(getItemCount() - 1);
             loading = true;
         }
@@ -164,15 +144,47 @@ public class AdapterGridScrollProgress extends RecyclerView.Adapter<RecyclerView
         }
     }
 
-    public interface OnLoadMoreListener {
-        void onLoadMore(int current_page);
-    }
-
     private int getLastVisibleItem(int[] into) {
         int last_idx = into[0];
         for (int i : into) {
             if (last_idx < i) last_idx = i;
         }
         return last_idx;
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(View view, User obj, int position);
+    }
+
+    public interface OnLoadMoreListener {
+        void onLoadMore(int current_page);
+    }
+
+    public static class ProgressViewHolder extends RecyclerView.ViewHolder {
+        public ProgressBar progress_bar;
+
+        public ProgressViewHolder(View v) {
+            super(v);
+            progress_bar =  v.findViewById(R.id.progress_bar);
+        }
+    }
+
+    public class OriginalViewHolder extends RecyclerView.ViewHolder {
+        CircularImageView image;
+        View like, message;
+        View parent;
+        TextView user_name;
+        TextView bio;
+
+        public OriginalViewHolder(View v) {
+            super(v);
+            parent = v;
+            image = v.findViewById(R.id.user_image);
+            user_name = v.findViewById(R.id.user_name);
+            bio = v.findViewById(R.id.bio);
+
+            message = v.findViewById(R.id.message);
+
+        }
     }
 }
