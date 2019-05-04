@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.facebook.drawee.view.SimpleDraweeView xmlns:fresco="http://schemas.android.com/apk/res-auto"
+
+        android:id="@+id/my_image_view"
+        android:layout_width="@dimen/_200sdp"
+        android:layout_height="@dimen/_200sdp"
+        fresco:actualImageScaleType="focusCrop"
+        fresco:backgroundImage="@color/white"
+        fresco:fadeDuration="300"
+        fresco:failureImage="@drawable/ic_error_outline"
+        fresco:failureImageScaleType="centerInside"
+        fresco:overlayImage="@drawable/ic_recent"
+        fresco:placeholderImage="@drawable/ic_dummy_user"
+        fresco:placeholderImageScaleType="fitCenter"
+        fresco:pressedStateOverlayImage="@color/blue_300"
+        fresco:progressBarAutoRotateInterval="1000"
+        fresco:progressBarImage="@drawable/profile"
+        fresco:progressBarImageScaleType="centerInside"
+        fresco:retryImage="@drawable/ic_recent"
+        fresco:retryImageScaleType="centerCrop"
+        fresco:roundAsCircle="true"
+        fresco:roundBottomEnd="false"
+        fresco:roundBottomLeft="false"
+        fresco:roundBottomRight="true"
+        fresco:roundBottomStart="false"
+        fresco:roundTopEnd="false"
+        fresco:roundTopLeft="true"
+        fresco:roundTopRight="false"
+        fresco:roundTopStart="false"
+        fresco:roundWithOverlayColor="@color/colorAccent"
+        fresco:roundedCornerRadius="1dp"
+        fresco:roundingBorderColor="@color/colorAccentDark"
+        fresco:roundingBorderWidth="2dp" />
+</LinearLayout>

@@ -15,22 +15,25 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.ibnsaad.thedcc.R;
 import com.ibnsaad.thedcc.adapter.UsersAdapterGridScrollProgress;
+import com.ibnsaad.thedcc.enums.Enums;
+import com.ibnsaad.thedcc.heper.SharedHelper;
 import com.ibnsaad.thedcc.model.User;
 import com.ibnsaad.thedcc.utils.Tools;
 import com.ibnsaad.thedcc.widget.SpacingItemDecoration;
+import com.mikhaellopez.circularimageview.CircularImageView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeActivity extends SplashedActivity {
+public class HomeActivity extends SplashActivity {
 
     private int item_per_display = 10;
     private UsersAdapterGridScrollProgress mAdapter;
     private RecyclerView recyclerView;
     private List<User> users;
-
     private ActionBar actionBar;
     private Toolbar toolbar;
 
@@ -38,7 +41,6 @@ public class HomeActivity extends SplashedActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
         initToolbar();
         initNavigationMenu();
         initComponent();
@@ -74,10 +76,12 @@ public class HomeActivity extends SplashedActivity {
             }
         });
 
+        View header = nav_view.getHeaderView(0);
+        SimpleDraweeView circularImageView = header.findViewById(R.id.avatar);
+        circularImageView
         // open drawer at start
      //   drawer.openDrawer(GravityCompat.START);
     }
-
 
     private void initComponent() {
         users = new ArrayList<>();

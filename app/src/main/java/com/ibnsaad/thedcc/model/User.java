@@ -5,9 +5,12 @@ import com.google.gson.annotations.SerializedName;
 
 public class User {
 
+
     @SerializedName("id")
     @Expose
     private Integer id;
+
+    public boolean progress;
     @SerializedName("username")
     @Expose
     private String username;
@@ -38,17 +41,20 @@ public class User {
     @SerializedName("photoUrl")
     @Expose
     private String photoUrl;
-    public boolean progress = false;
-    public Integer getId() {
-        return id;
-    }
 
     public User(boolean progress) {
         this.progress = progress;
     }
 
+    public User() {
+    }
+
     public User(String knownAs) {
         this.knownAs = knownAs;
+    }
+
+    public Integer getId() {
+        return id;
     }
 
     public boolean isProgress() {
@@ -142,4 +148,5 @@ public class User {
     public void setPhotoUrl(String photoUrl) {
         this.photoUrl = photoUrl;
     }
+
 }

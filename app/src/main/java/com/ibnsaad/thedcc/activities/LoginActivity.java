@@ -17,6 +17,8 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.ibnsaad.thedcc.OldRegisterActivity;
 import com.ibnsaad.thedcc.R;
+import com.ibnsaad.thedcc.enums.Enums;
+import com.ibnsaad.thedcc.heper.SharedHelper;
 import com.ibnsaad.thedcc.listeners.ConnectivityListener;
 import com.ibnsaad.thedcc.model.LoginRespons;
 import com.ibnsaad.thedcc.network.RetrofitNetwork.BaseClient;
@@ -70,8 +72,18 @@ public class LoginActivity extends AppCompatActivity  {
     }
 
     public void goRegister(View view) {
-        startActivity(new Intent(this, RegisterActivity.class));
+        startActivityForResult(new Intent(this, RegisterActivity.class),123);
         finish();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode==RESULT_OK){
+
+        }else {
+
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     private void setListeners() {
@@ -92,13 +104,6 @@ public class LoginActivity extends AppCompatActivity  {
         String email_ = email.getText().toString();
         String password_ = password.getText().toString();
 
-//        if (!emailMatches(email_)) {
-//            email.setError(getString(R.string.not_valid_email));
-//            Dialogs.getInstance().showSnack(LoginActivity.this, getString(R.string.not_valid_email));
-//            Log.d(TAG, "creatNewUser: " + getString(R.string.not_valid_email));
-//            return;
-//        } else
-
         if (password_.equals("")) {
             password.setError(getString(R.string.password_is_required));
             Dialogs.getInstance().showSnack(LoginActivity.this, getString(R.string.password_is_required));
@@ -112,12 +117,25 @@ public class LoginActivity extends AppCompatActivity  {
         jsonObject1.addProperty("username", email_);
         jsonObject1.addProperty("password", password_);
 
-        BaseClient.getApi().logIn(jsonObject1).enqueue(new Callback<JsonObject>() {
+        BaseClient.getApi().logIn(jsonObject1).enqueue(new Callback<LoginRespons>() {
             @Override
-            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+            public void onResponse(Call<LoginRespons> call, Response<LoginRespons> response) {
                 if (response.body() != null) {
-                    Log.d(TAG, "onResponse: "+response.body().toString());
-                    startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                    LoginRespons loginRespons = response.body();
+                    Log.d(TAG, "onResponse: "+response.body().getToken());
+                    SharedHelper.putKey(LoginActivity.this, Enums.TOKEN.name(),loginRespons.getToken());
+                    SharedHelper.putKey(LoginActivity.this, Enums.ID.name(), String.valueOf(loginRespons.getUser().getId()));
+                    SharedHelper.putBoolean(LoginActivity.this, Enums.IS_LOG_IN.name(),true);
+                    SharedHelper.putKey(LoginActivity.this, Enums.NAME.name(),loginRespons.getUser().getUsername());
+                    SharedHelper.putKey(LoginActivity.this,Enums.DateOfBirth.name(),loginRespons.getUser().getDateOfBirth());
+                    SharedHelper.putKey(LoginActivity.this,Enums.City.name(),loginRespons.getUser().getCity());
+                    SharedHelper.putKey(LoginActivity.this,Enums.Gender.name(),loginRespons.getUser().getGender());
+                    SharedHelper.putKey(LoginActivity.this,Enums.Country.name(),loginRespons.getUser().getCountry());
+                    SharedHelper.putKey(LoginActivity.this,Enums.KnownAs.name(),loginRespons.getUser().getKnownAs());
+                    SharedHelper.putKey(LoginActivity.this,Enums.PhotoUrl.name(),loginRespons.getUser().getPhotoUrl());
+                    SharedHelper.putKey(LoginActivity.this,Enums.Age.name(), String.valueOf(loginRespons.getUser().getAge()));
+
+                    setResult(RESULT_OK);
                     finish();
                 }else {
                     hideProgress();
@@ -128,7 +146,7 @@ public class LoginActivity extends AppCompatActivity  {
             }
 
             @Override
-            public void onFailure(Call<JsonObject> call, Throwable t) {
+            public void onFailure(Call<LoginRespons> call, Throwable t) {
                 noInternetDialog = Dialogs.getInstance().showWorningDialog(LoginActivity.this, t.getMessage());
                 Log.d(TAG, "onFailure: " + t.getMessage());
             }

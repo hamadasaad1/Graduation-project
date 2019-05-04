@@ -35,6 +35,6 @@ public interface Apis {
     Call<LoginRespons> logIn(@Field("username") String userName,@Field("password") String password);
 
     @POST("api/Auth/login")
-    Call<JsonObject> logIn(@Body JsonObject jsonObject);
+    Call<LoginRespons> logIn(@Body JsonObject jsonObject);
 
 }

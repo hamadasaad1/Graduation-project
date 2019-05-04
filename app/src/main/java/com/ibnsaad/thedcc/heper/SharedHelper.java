@@ -23,6 +23,21 @@ public class SharedHelper {
 
     }
 
+    public static boolean getboolean(Context contextGetKey, String Key) {
+        sharedPreferences = contextGetKey.getSharedPreferences("Cache", Context.MODE_PRIVATE);
+        boolean Value = sharedPreferences.getBoolean(Key, false);
+        return Value;
+
+    }
+
+    public static void putBoolean(Context context, String Key, boolean Value) {
+        sharedPreferences = context.getSharedPreferences("Cache", Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+        editor.putBoolean(Key, Value);
+        editor.commit();
+
+    }
+
 
     public static void clearSharedPreferences(Context context)
     {
