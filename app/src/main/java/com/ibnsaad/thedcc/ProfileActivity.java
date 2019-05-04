@@ -33,7 +33,6 @@ public class ProfileActivity extends AppCompatActivity {
     public static final String TAG = ProfileActivity.class.getSimpleName();
     private AuthHelper mAuthHelper;
 
-
     private AppCompatEditText email, userName, userAge, userGender, address, city, phone;
 
     @Override

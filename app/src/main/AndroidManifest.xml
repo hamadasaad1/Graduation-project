@@ -31,17 +31,19 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".activities.HomeActivity">
-
-        </activity>
-        <activity android:name=".activities.RegisterActivity" />
-        <activity android:name=".activities.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ProfileActivity" />
+        <activity android:name=".activities.RegisterActivity" />
+        <activity android:name=".activities.LoginActivity">
+
+        </activity>
+        <activity android:name=".ProfileActivity">
+
+        </activity>
         <activity android:name=".DetailsActivity" />
         <activity android:name=".OldRegisterActivity" />
         <activity android:name=".MainActivity" />
