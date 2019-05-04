@@ -11,7 +11,7 @@ import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.ParsedRequestListener;
 import com.ibnsaad.thedcc.model.PhotoModel;
-import com.ibnsaad.thedcc.model.Users;
+import com.ibnsaad.thedcc.model.User;
 import com.ibnsaad.thedcc.network.AuthHelper;
 import com.ibnsaad.thedcc.network.RetrofitNetwork.Client;
 import com.ibnsaad.thedcc.network.RetrofitNetwork.Apis;
@@ -54,13 +54,13 @@ public class ProfileActivity extends AppCompatActivity {
     private void getUser(int id) {
         Client client = new Client();
         Apis apis = client.getClient().create(Apis.class);
-        Call<Users> call = apis.getUser(id);
-        call.enqueue(new Callback<Users>() {
+        Call<User> call = apis.getUser(id);
+        call.enqueue(new Callback<User>() {
             @Override
-            public void onResponse(Call<Users> call, Response<Users> response) {
+            public void onResponse(Call<User> call, Response<User> response) {
 
                 if (response.isSuccessful()) {
-                    Users user = response.body();
+                    User user = response.body();
                     Toast.makeText(ProfileActivity.this,
                             " " + response.body(), Toast.LENGTH_SHORT).show();
                     Log.d(TAG, "first : " + user.getUsername());
@@ -71,7 +71,7 @@ public class ProfileActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<Users> call, Throwable t) {
+            public void onFailure(Call<User> call, Throwable t) {
                 Toast.makeText(ProfileActivity.this, "some think error",
                         Toast.LENGTH_SHORT).show();
 
@@ -119,16 +119,16 @@ public class ProfileActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        AndroidNetworking.get("http://thedccapp.com//api/Users/{id}")
+        AndroidNetworking.get("http://thedccapp.com//api/User/{id}")
 //                .addPathParameter("id", String.valueOf(id))
                 // .addJSONObjectBody(jsonObject)
                 .setTag(this)
                 .setPriority(Priority.LOW)
                 .addHeaders("Authorization", "Bearer " + mAuthHelper.getIdToken())
                 .build()
-                .getAsObject(Users.class, new ParsedRequestListener<Users>() {
+                .getAsObject(User.class, new ParsedRequestListener<User>() {
                     @Override
-                    public void onResponse(Users user) {
+                    public void onResponse(User user) {
                         // do anything with response
                         Log.d(TAG, "id : " + user.getId());
                         Log.d(TAG, "firstname : " + user.getUsername());

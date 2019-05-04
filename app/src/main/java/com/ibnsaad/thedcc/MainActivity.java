@@ -15,8 +15,9 @@ import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.ParsedRequestListener;
+import com.ibnsaad.thedcc.activities.LoginActivity;
 import com.ibnsaad.thedcc.adapter.UsersAdapter;
-import com.ibnsaad.thedcc.model.Users;
+import com.ibnsaad.thedcc.model.User;
 import com.ibnsaad.thedcc.network.AuthHelper;
 
 import java.util.ArrayList;
@@ -31,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
 
-    private List<Users> mUsersList =new ArrayList<>();
+    private List<User> mUserList =new ArrayList<>();
     private UsersAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private    String token;
@@ -60,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         if (mAuthHelper.isLoggedIn()){
             getAllUser();
         }else {
-            startActivity(new Intent(this, OldLoginActivity.class));
+            startActivity(new Intent(this, LoginActivity.class));
         }
 
 
@@ -68,20 +69,20 @@ public class MainActivity extends AppCompatActivity {
 
     private void getAllUser(){
 
-        AndroidNetworking.get("http://thedccapp.com/api/Users")
+        AndroidNetworking.get("http://thedccapp.com/api/User")
                 .setTag(this)
                 .setPriority(Priority.LOW)
                 .addHeaders("Authorization", "Bearer "+mAuthHelper.getIdToken())
                 .build()
-                .getAsObjectList(Users.class, new ParsedRequestListener<List<Users>>() {
+                .getAsObjectList(User.class, new ParsedRequestListener<List<User>>() {
                     @Override
-                    public void onResponse(List<Users> users) {
+                    public void onResponse(List<User> users) {
                         // do anything with response
                         Log.d(TAG, "userList size : " + users.size());
-                        mUsersList =users;
-                        adapter=new UsersAdapter(mUsersList,getApplicationContext());
+                        mUserList =users;
+                        adapter=new UsersAdapter(mUserList,getApplicationContext());
                         recyclerView.setAdapter(adapter);
-                        for (Users user : users) {
+                        for (User user : users) {
 
                             Log.d(TAG, "firstname : " + user.getUsername());
 
@@ -124,6 +125,6 @@ public class MainActivity extends AppCompatActivity {
     private void logout() {
 
         mAuthHelper.clear();
-        startActivity(new Intent(this, OldLoginActivity.class));
+        startActivity(new Intent(this, LoginActivity.class));
     }
 }

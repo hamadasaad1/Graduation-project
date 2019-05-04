@@ -20,6 +20,7 @@ import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
+import com.ibnsaad.thedcc.activities.LoginActivity;
 import com.ibnsaad.thedcc.network.AuthHelper;
 
 import org.json.JSONException;
@@ -88,7 +89,7 @@ public class OldRegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Finish the registration screen and return to the Login activity
-                Intent intent = new Intent(getApplicationContext(), OldLoginActivity.class);
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(intent);
                 finish();
                 overridePendingTransition(R.anim.push_left, R.anim.push_left_out);

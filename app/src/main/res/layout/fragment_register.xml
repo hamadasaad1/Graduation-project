@@ -15,7 +15,6 @@
             android:layout_width="match_parent"
             android:id="@+id/scroller"
             android:layout_height="wrap_content"
-            android:layout_below="@id/toolbar"
             android:clipToPadding="false"
             android:padding="@dimen/_14sdp"
             android:scrollbars="none"

@@ -37,7 +37,7 @@ public class Users {
     private String country;
     @SerializedName("photoUrl")
     @Expose
-    private Object photoUrl;
+    private String photoUrl;
 
     public Integer getId() {
         return id;
@@ -123,8 +123,7 @@ public class Users {
         return photoUrl;
     }
 
-    public void setPhotoUrl(Object photoUrl) {
+    public void setPhotoUrl(String photoUrl) {
         this.photoUrl = photoUrl;
     }
-
 }

@@ -99,6 +99,7 @@ public class RegisterActivity extends AppCompatActivity implements ConnectivityL
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         actionBar = getSupportActionBar();
+        toolbar.setTitle("");
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeButtonEnabled(true);
         Tools.setSystemBarColorInt(this, Color.parseColor("#006ACF"));
@@ -112,15 +113,15 @@ public class RegisterActivity extends AppCompatActivity implements ConnectivityL
     }
 
     private void initComponent() {
-        (findViewById(R.id.register)).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (internetConnected)
-                    creatNewUser();
-                else
-                    noInternetDialog = Dialogs.getInstance().showWorningDialog(RegisterActivity.this, getString(R.string.no_internet_connection));
-            }
-        });
+//        (findViewById(R.id.register)).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (internetConnected)
+//                    creatNewUser();
+//                else
+//                    noInternetDialog = Dialogs.getInstance().showWorningDialog(RegisterActivity.this, getString(R.string.no_internet_connection));
+//            }
+//        });
         (findViewById(R.id.user_age)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -134,7 +135,7 @@ public class RegisterActivity extends AppCompatActivity implements ConnectivityL
             }
         });
 
-        (findViewById(R.id.sign_in)).setOnClickListener(new View.OnClickListener() {
+        (findViewById(R.id.login)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 goLogIn();
@@ -270,4 +271,7 @@ public class RegisterActivity extends AppCompatActivity implements ConnectivityL
 
     }
 
+    public void goHome(View view) {
+        startActivity(new Intent(this, HomeActivity.class));
+    }
 }

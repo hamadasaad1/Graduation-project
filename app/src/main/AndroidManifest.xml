@@ -30,7 +30,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activities.RegisterActivity"></activity>
+        <activity android:name=".activities.HomeActivity">
+
+        </activity>
+        <activity android:name=".activities.RegisterActivity" />
         <activity android:name=".activities.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -41,7 +44,6 @@
         <activity android:name=".ProfileActivity" />
         <activity android:name=".DetailsActivity" />
         <activity android:name=".OldRegisterActivity" />
-        <activity android:name=".OldLoginActivity" />
         <activity android:name=".MainActivity" />
     </application>
 

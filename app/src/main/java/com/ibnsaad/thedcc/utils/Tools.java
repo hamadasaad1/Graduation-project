@@ -142,7 +142,7 @@ public class Tools {
         }
     }
 
-    public void displayImageOriginal(Context ctx, ImageView img, String url) {
+    public static void displayImageOriginal(Context ctx, ImageView img, String url) {
         try {
             Glide.with(ctx).load(url)
                     .crossFade()
@@ -180,7 +180,7 @@ public class Tools {
         return name;
     }
 
-    public int dpToPx(Context c, int dp) {
+    public static int dpToPx(Context c, int dp) {
         Resources r = c.getResources();
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, r.getDisplayMetrics()));
     }

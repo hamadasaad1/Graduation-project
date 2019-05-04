@@ -11,13 +11,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
-import com.androidnetworking.AndroidNetworking;
-import com.androidnetworking.common.Priority;
-import com.androidnetworking.error.ANError;
-import com.androidnetworking.interfaces.JSONObjectRequestListener;
-import com.ibnsaad.thedcc.OldLoginActivity;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 import com.ibnsaad.thedcc.OldRegisterActivity;
 import com.ibnsaad.thedcc.R;
 import com.ibnsaad.thedcc.listeners.ConnectivityListener;
@@ -26,9 +23,6 @@ import com.ibnsaad.thedcc.network.RetrofitNetwork.BaseClient;
 import com.ibnsaad.thedcc.utils.Connectivity;
 import com.ibnsaad.thedcc.utils.Dialogs;
 import com.ibnsaad.thedcc.utils.Tools;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -77,7 +71,7 @@ public class LoginActivity extends AppCompatActivity implements ConnectivityList
     }
 
     public void goRegister(View view) {
-        startActivity(new Intent(this, OldRegisterActivity.class));
+        startActivity(new Intent(this, RegisterActivity.class));
         finish();
     }
 
@@ -85,10 +79,12 @@ public class LoginActivity extends AppCompatActivity implements ConnectivityList
         (findViewById(R.id.login)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (internetConnected)
-                    login();
-                else
-                    noInternetDialog = Dialogs.getInstance().showWorningDialog(LoginActivity.this, getString(R.string.no_internet_connection));
+//                if (internetConnected)
+//                    login();
+//                else
+//                    noInternetDialog = Dialogs.getInstance().showWorningDialog(LoginActivity.this, getString(R.string.no_internet_connection));
+
+                login();
             }
         });
     }
@@ -113,72 +109,23 @@ public class LoginActivity extends AppCompatActivity implements ConnectivityList
 
         showProgress();
 
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put("username",email_);
-            jsonObject.put("password",password_);
+        JsonObject jsonObject1 = new JsonObject();
+        jsonObject1.addProperty("username", email_);
+        jsonObject1.addProperty("password", password_);
 
+        BaseClient.getApi().logIn(jsonObject1).enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
 
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+                startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+            }
 
-        AndroidNetworking.post("http://thedccapp.com/api/Auth/login")
-                .addJSONObjectBody(jsonObject)
-                .setTag("test")
-                .setPriority(Priority.MEDIUM)
-                .build()
-                .getAsJSONObject(new JSONObjectRequestListener() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-
-                        try {
-
-                            String token=  response.getString("token");
-                            //Token token1= (Token) response.get("token");
-                            Log.d("username",token);
-                            JSONObject object=response.getJSONObject("user");
-                            int id=object.getInt("id");
-
-                            //Log.d("id",String.valueOf(id));
-
-                            // Toast.makeText(OldLoginActivity.this, ""+mAuthHelper.getId(), Toast.LENGTH_SHORT).show();
-                            Toast.makeText(LoginActivity.this, "Login done... ",
-                                    Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
-                            finish();
-                        } catch (JSONException e) {
-                            Toast.makeText(LoginActivity.this,
-                                    "JSONException "+e.getMessage(),
-                                    Toast.LENGTH_SHORT).show();
-                            e.printStackTrace();
-                        }
-                    }
-
-                    @Override
-                    public void onError(ANError anError) {
-                        Log.d(TAG, "onError: "+anError.getErrorBody());
-                        Toast.makeText(LoginActivity.this, "Can't Login Now..."
-                                        +anError.getErrorBody(),
-                                Toast.LENGTH_SHORT).show();
-                    }
-                });
-//        BaseClient.getApi().logIn(email_, password_).enqueue(new Callback<LoginRespons>() {
-//            @Override
-//            public void onResponse(Call<LoginRespons> call, Response<LoginRespons> response) {
-//                Log.d(TAG, "onResponse: "+response.body().toString());
-//                if (response.body() != null) {
-//                    startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
-//                    finish();
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<LoginRespons> call, Throwable t) {
-//                Log.d(TAG, "onFailure: "+t.getMessage());
-//                hideProgress();
-//            }
-//        });
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                Log.d(TAG, "onFailure: " + t.getMessage());
+            }
+        });
     }
 
     @Override

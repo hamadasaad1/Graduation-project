@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/grey_20"
+    android:background="@color/grey_10"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -15,24 +15,19 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorPrimary"
+            android:background="@color/grey_10"
+            android:fitsSystemWindows="false"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:contentInsetStartWithNavigation="0dp"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            app:subtitle=""
-            app:subtitleTextAppearance="@style/TextAppearance.AppCompat.Caption"
-            app:subtitleTextColor="@color/grey_10"
-            app:title=""
-            app:titleTextAppearance="@style/TextAppearance.AppCompat.Medium"
-            app:titleTextColor="@android:color/white" />
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:id="@+id/scroller"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_below="@id/toolbar"
+            android:background="@color/grey_10"
             android:clipToPadding="false"
-            android:padding="@dimen/_14sdp"
+            android:padding="@dimen/spacing_large"
             android:scrollbars="none"
             android:scrollingCache="true"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
@@ -42,58 +37,40 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_5sdp"
-                    android:layout_marginLeft="@dimen/_5sdp"
-                    android:layout_marginBottom="@dimen/_5sdp"
-                    android:text="@string/sign_up"
-                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-                    android:textColor="@color/blue_600"
-                    android:textStyle="bold" />
-
-                <View
-                    android:layout_width="@dimen/_35sdp"
-                    android:layout_height="@dimen/_4sdp"
-                    android:layout_marginStart="@dimen/_5sdp"
-                    android:layout_marginLeft="@dimen/_5sdp"
-                    android:layout_marginBottom="@dimen/_18sdp"
-                    android:background="@color/blue_600" />
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_middle"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="@dimen/_10sdp"
-                        android:layout_height="@dimen/_10sdp"
-                        android:layout_margin="@dimen/_5sdp"
+                        android:layout_width="@dimen/spacing_middle"
+                        android:layout_height="@dimen/spacing_middle"
+                        android:layout_margin="@dimen/spacing_medium"
                         android:src="@drawable/shape_circle"
                         android:tint="@color/red_400" />
 
                     <View
-                        android:layout_width="@dimen/_8sdp"
+                        android:layout_width="@dimen/spacing_middle"
                         android:layout_height="0dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/account_information"
+                        android:text="Account Information"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
-                        android:textColor="@color/blue_grey_600" />
+                        android:textColor="@color/grey_80" />
 
                 </LinearLayout>
 
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_8sdp"
-                    app:cardBackgroundColor="@color/grey_10"
-                    app:cardCornerRadius="@dimen/_2sdp"
-                    app:cardElevation="@dimen/_1sdp"
+                    android:layout_marginTop="@dimen/spacing_middle"
+                    app:cardBackgroundColor="@android:color/white"
+                    app:cardCornerRadius="1dp"
+                    app:cardElevation="3dp"
                     app:cardUseCompatPadding="true">
 
                     <LinearLayout
@@ -102,66 +79,29 @@
                         android:orientation="vertical">
 
                         <EditText
-                            android:id="@+id/email"
                             style="@style/EditText.Flat.Grey"
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/_40sdp"
+                            android:layout_height="@dimen/spacing_xxlarge"
                             android:background="@android:color/transparent"
-                            android:hint="@string/email"
-                            android:minHeight="@dimen/_40sdp"
-                            android:paddingLeft="@dimen/_15sdp"
-                            android:paddingRight="@dimen/_15sdp" />
+                            android:hint="Username"
+                            android:minHeight="@dimen/spacing_xmlarge"
+                            android:paddingLeft="@dimen/spacing_large"
+                            android:paddingRight="@dimen/spacing_large" />
 
                         <View
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/_1sdp"
-                            android:background="@color/grey_5" />
-
-
-                        <EditText
-                            android:id="@+id/password"
-                            style="@style/EditText.Flat.Grey"
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/_40sdp"
-                            android:background="@android:color/transparent"
-                            android:hint="@string/password"
-                            android:inputType="textPassword"
-                            android:minHeight="@dimen/_40sdp"
-                            android:paddingLeft="@dimen/_15sdp"
-                            android:paddingRight="@dimen/_15sdp" />
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/_1sdp"
+                            android:layout_height="1dp"
                             android:background="@color/grey_5" />
 
                         <EditText
-                            android:id="@+id/re_password"
                             style="@style/EditText.Flat.Grey"
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/_40sdp"
+                            android:layout_height="@dimen/spacing_xxlarge"
                             android:background="@android:color/transparent"
-                            android:hint="@string/password_confirm"
-                            android:inputType="textPassword"
-                            android:minHeight="@dimen/_40sdp"
-                            android:paddingLeft="@dimen/_15sdp"
-                            android:paddingRight="@dimen/_15sdp" />
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/_1sdp"
-                            android:background="@color/grey_5" />
-
-                        <EditText
-                            android:id="@+id/phone"
-                            style="@style/EditText.Flat.Grey"
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/_40sdp"
-                            android:background="@android:color/transparent"
-                            android:hint="@string/phone"
-                            android:inputType="phone"
-                            android:minHeight="@dimen/_40sdp"
-                            android:paddingLeft="@dimen/_15sdp"
-                            android:paddingRight="@dimen/_15sdp" />
+                            android:hint="Password"
+                            android:minHeight="@dimen/spacing_xmlarge"
+                            android:paddingLeft="@dimen/spacing_large"
+                            android:paddingRight="@dimen/spacing_large" />
 
                     </LinearLayout>
 
@@ -170,37 +110,37 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/spacing_middle"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="@dimen/_10sdp"
-                        android:layout_height="@dimen/_10sdp"
-                        android:layout_margin="@dimen/_5sdp"
+                        android:layout_width="@dimen/spacing_middle"
+                        android:layout_height="@dimen/spacing_middle"
+                        android:layout_margin="@dimen/spacing_medium"
                         android:src="@drawable/shape_circle"
                         android:tint="@color/red_400" />
 
                     <View
-                        android:layout_width="@dimen/_8sdp"
+                        android:layout_width="@dimen/spacing_middle"
                         android:layout_height="0dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/profile_information"
+                        android:text="Profile Information"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
-                        android:textColor="@color/blue_grey_600" />
+                        android:textColor="@color/grey_80" />
 
                 </LinearLayout>
 
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    app:cardBackgroundColor="@color/grey_10"
-                    app:cardCornerRadius="@dimen/_2sdp"
-                    app:cardElevation="@dimen/_1sdp"
+                    android:layout_marginTop="@dimen/spacing_middle"
+                    app:cardBackgroundColor="@android:color/white"
+                    app:cardCornerRadius="1dp"
+                    app:cardElevation="3dp"
                     app:cardUseCompatPadding="true">
 
                     <LinearLayout
@@ -209,135 +149,110 @@
                         android:orientation="vertical">
 
                         <EditText
-                            android:id="@+id/user_name"
                             style="@style/EditText.Flat.Grey"
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/_40sdp"
+                            android:layout_height="@dimen/spacing_xxlarge"
                             android:background="@android:color/transparent"
-                            android:hint="@string/full_name"
-                            android:minHeight="@dimen/_40sdp"
-                            android:paddingLeft="@dimen/_15sdp"
-                            android:paddingRight="@dimen/_15sdp" />
+                            android:hint="Full Name"
+                            android:minHeight="@dimen/spacing_xmlarge"
+                            android:paddingLeft="@dimen/spacing_large"
+                            android:paddingRight="@dimen/spacing_large" />
 
                         <View
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/_1sdp"
+                            android:layout_height="1dp"
+                            android:background="@color/grey_5" />
+
+                        <EditText
+                            android:id="@+id/city"
+                            style="@style/EditText.Flat.Grey"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/spacing_xxlarge"
+                            android:background="@android:color/transparent"
+                            android:hint="@string/city"
+                            android:minHeight="@dimen/spacing_xmlarge"
+                            android:paddingLeft="@dimen/spacing_large"
+                            android:paddingRight="@dimen/spacing_large" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/grey_5" />
+
+                        <EditText
+                            android:id="@+id/country"
+                            style="@style/EditText.Flat.Grey"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/spacing_xxlarge"
+                            android:background="@android:color/transparent"
+                            android:hint="@string/country"
+                            android:minHeight="@dimen/spacing_xmlarge"
+                            android:paddingLeft="@dimen/spacing_large"
+                            android:paddingRight="@dimen/spacing_large" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
                             android:background="@color/grey_5" />
 
                         <EditText
                             android:id="@+id/user_age"
                             style="@style/EditText.Flat.Grey"
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/_40sdp"
+                            android:layout_height="@dimen/spacing_xxlarge"
                             android:background="@android:color/transparent"
                             android:drawableEnd="@drawable/ic_arrow_drop_grey"
                             android:drawableRight="@drawable/ic_arrow_drop_grey"
                             android:editable="false"
                             android:focusable="false"
-                            android:hint="@string/birthday"
-                            android:minHeight="@dimen/_40sdp"
-                            android:paddingLeft="@dimen/_15sdp"
-                            android:paddingRight="@dimen/_15sdp" />
+                            android:hint="Age"
+                            android:minHeight="@dimen/spacing_xmlarge"
+                            android:paddingLeft="@dimen/spacing_large"
+                            android:paddingRight="@dimen/spacing_large" />
 
                         <View
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/_1sdp"
+                            android:layout_height="1dp"
                             android:background="@color/grey_5" />
 
                         <EditText
                             android:id="@+id/user_gender"
                             style="@style/EditText.Flat.Grey"
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/_40sdp"
+                            android:layout_height="@dimen/spacing_xxlarge"
                             android:background="@android:color/transparent"
                             android:drawableEnd="@drawable/ic_arrow_drop_grey"
                             android:drawableRight="@drawable/ic_arrow_drop_grey"
                             android:editable="false"
                             android:focusable="false"
-                            android:hint="@string/gender"
-                            android:minHeight="@dimen/_40sdp"
-                            android:paddingLeft="@dimen/_15sdp"
-                            android:paddingRight="@dimen/_15sdp" />
+                            android:hint="Gender"
+                            android:minHeight="@dimen/spacing_xmlarge"
+                            android:paddingLeft="@dimen/spacing_large"
+                            android:paddingRight="@dimen/spacing_large" />
 
                         <View
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/_1sdp"
+                            android:layout_height="1dp"
                             android:background="@color/grey_5" />
 
                         <EditText
-                            android:onClick="requestLocation"
-                            android:id="@+id/city"
+                            android:id="@+id/date_of_birth"
                             style="@style/EditText.Flat.Grey"
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/_40sdp"
+                            android:layout_height="@dimen/spacing_xxlarge"
                             android:background="@android:color/transparent"
+                            android:drawableEnd="@drawable/ic_arrow_drop_grey"
+                            android:drawableRight="@drawable/ic_arrow_drop_grey"
                             android:editable="false"
                             android:focusable="false"
-                            android:hint="@string/city"
-                            android:minHeight="@dimen/_40sdp"
-                            android:paddingLeft="@dimen/_15sdp"
-                            android:paddingRight="@dimen/_15sdp" />
+                            android:hint="@string/birthday"
+                            android:minHeight="@dimen/spacing_xmlarge"
+                            android:paddingLeft="@dimen/spacing_large"
+                            android:paddingRight="@dimen/spacing_large" />
 
                         <View
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/_1sdp"
-                            android:background="@color/grey_5" />
-
-                        <EditText
-                            android:onClick="requestLocation"
-                            android:id="@+id/state"
-                            style="@style/EditText.Flat.Grey"
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/_40sdp"
-                            android:background="@android:color/transparent"
-                            android:editable="false"
-                            android:focusable="false"
-                            android:hint="@string/state"
-                            android:minHeight="@dimen/_40sdp"
-                            android:paddingLeft="@dimen/_15sdp"
-                            android:paddingRight="@dimen/_15sdp" />
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/_1sdp"
-                            android:background="@color/grey_5" />
-
-                        <EditText
-                            android:onClick="requestLocation"
-                            android:id="@+id/country"
-                            style="@style/EditText.Flat.Grey"
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/_40sdp"
-                            android:background="@android:color/transparent"
-                            android:editable="false"
-                            android:focusable="false"
-                            android:hint="@string/cuntry"
-                            android:minHeight="@dimen/_40sdp"
-                            android:paddingLeft="@dimen/_15sdp"
-                            android:paddingRight="@dimen/_15sdp" />
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/_1sdp"
-                            android:background="@color/grey_5" />
-
-                        <EditText
-                            android:onClick="requestLocation"
-                            android:id="@+id/address"
-                            style="@style/EditText.Flat.Grey"
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/_40sdp"
-                            android:background="@android:color/transparent"
-                            android:editable="false"
-                            android:focusable="false"
-                            android:hint="@string/address"
-                            android:minHeight="@dimen/_40sdp"
-                            android:paddingLeft="@dimen/_15sdp"
-                            android:paddingRight="@dimen/_15sdp" />
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="@dimen/_1sdp"
+                            android:layout_height="1dp"
                             android:background="@color/grey_5" />
 
                     </LinearLayout>
@@ -347,29 +262,25 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:layout_marginBottom="@dimen/_50sdp"
+                    android:layout_marginTop="@dimen/spacing_medium"
                     android:gravity="center"
-                    android:orientation="horizontal"
-                    android:paddingBottom="@dimen/_50sdp">
+                    android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/already_have_an_account"
+                        android:text="Already have an account? "
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
-                        android:textColor="@color/blue_grey_600" />
+                        android:textColor="@color/grey_60" />
 
                     <TextView
-                        android:id="@+id/sign_in"
+                        android:id="@+id/login"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:clickable="true"
-                        android:focusable="true"
-                        android:text="@string/login"
+                        android:text="Sign In"
                         android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
                         android:textColor="@color/blue_600"
-                        android:textSize="@dimen/_16sdp"
                         android:textStyle="bold" />
 
                 </LinearLayout>
@@ -387,6 +298,7 @@
 
             <TextView
                 android:id="@+id/register"
+                android:onClick="goHome"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import com.ibnsaad.thedcc.DetailsActivity;
 import com.ibnsaad.thedcc.R;
-import com.ibnsaad.thedcc.model.Users;
+import com.ibnsaad.thedcc.model.User;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -23,11 +23,11 @@ import butterknife.ButterKnife;
 
 public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserHolder> {
 
-    private List<Users> mUsersList;
+    private List<User> mUserList;
     private Context mContext;
 
-    public UsersAdapter(List<Users> mUsersList, Context mContext) {
-        this.mUsersList = mUsersList;
+    public UsersAdapter(List<User> mUserList, Context mContext) {
+        this.mUserList = mUserList;
         this.mContext = mContext;
     }
 
@@ -42,12 +42,12 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserHolder> 
     @Override
     public void onBindViewHolder(@NonNull UserHolder userHolder, int i) {
 
-        userHolder.bindUses(mUsersList.get(i));
+        userHolder.bindUses(mUserList.get(i));
     }
 
     @Override
     public int getItemCount() {
-        return mUsersList.size();
+        return mUserList.size();
     }
 
 
@@ -67,33 +67,33 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserHolder> 
                 public void onClick(View v) {
                     int postion=getAdapterPosition();
                     if (postion !=RecyclerView.NO_POSITION) {
-                        Users usersCliked = mUsersList.get(postion);
+                        User userCliked = mUserList.get(postion);
                         Intent intent = new Intent(mContext, DetailsActivity.class);
-                        intent.putExtra("name", mUsersList.get(postion).getUsername());
+                        intent.putExtra("name", mUserList.get(postion).getUsername());
                         //to check about image profile before send data to anther activity
-                        if (mUsersList.get(postion).getPhotoUrl() !=null) {
-                            intent.putExtra("profile", mUsersList.get(postion).getPhotoUrl().toString());
+                        if (mUserList.get(postion).getPhotoUrl() !=null) {
+                            intent.putExtra("profile", mUserList.get(postion).getPhotoUrl().toString());
 
                         }
-                        intent.putExtra("birthday", mUsersList.get(postion).getDateOfBirth());
-                        intent.putExtra("city", mUsersList.get(postion).getCity());
+                        intent.putExtra("birthday", mUserList.get(postion).getDateOfBirth());
+                        intent.putExtra("city", mUserList.get(postion).getCity());
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         mContext.startActivity(intent);
-                        Toast.makeText(mContext, usersCliked.getUsername()
+                        Toast.makeText(mContext, userCliked.getUsername()
                                 , Toast.LENGTH_SHORT).show();
                     }
                 }
             });
         }
 
-        public void bindUses(Users users) {
-            mUserName.setText(users.getUsername());
+        public void bindUses(User user) {
+            mUserName.setText(user.getUsername());
 
-            if (users.getPhotoUrl()==null){
+            if (user.getPhotoUrl()==null){
 
             }else {
                 Picasso.get()
-                        .load(users.getPhotoUrl().toString())
+                        .load(user.getPhotoUrl().toString())
                         .placeholder(R.drawable.profile)
                         .into(mImageProfile);
             }
