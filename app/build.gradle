@@ -1,4 +1,6 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 27
@@ -85,6 +87,10 @@ dependencies {
     implementation 'com.mikhaellopez:circularimageview:3.2.0'          // circle image view
     implementation 'com.hootsuite.android:nachos:1.1.1'
     implementation 'com.github.pwittchen:reactivenetwork-rx2:3.0.2'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
 
+}
+repositories {
+    mavenCentral()
 }

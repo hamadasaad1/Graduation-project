@@ -111,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.profile_activity:
                 //newGame();
-               startActivity( new Intent(this,ProfileActivity.class));
+               startActivity( new Intent(this, EditProfileActivity.class));
                 return true;
             case R.id.log_out:
                 logout();

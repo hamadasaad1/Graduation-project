@@ -24,9 +24,9 @@ import com.ibnsaad.thedcc.widget.SpacingItemDecoration;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends SplashedActivity {
 
-    private int item_per_display = 5;
+    private int item_per_display = 10;
     private UsersAdapterGridScrollProgress mAdapter;
     private RecyclerView recyclerView;
     private List<User> users;
@@ -75,7 +75,7 @@ public class HomeActivity extends AppCompatActivity {
         });
 
         // open drawer at start
-        drawer.openDrawer(GravityCompat.START);
+     //   drawer.openDrawer(GravityCompat.START);
     }
 
 
@@ -110,6 +110,11 @@ public class HomeActivity extends AppCompatActivity {
 
     private List<User> generateListItems(int count) {
         List<User> users = new ArrayList<>();
+        users.add(new User("Bassel faisal"));
+        users.add(new User("Bassel faisal"));
+        users.add(new User("eslam faisal"));
+        users.add(new User("Bassel faisal"));
+        users.add(new User("eslam faisal"));
         users.add(new User("Bassel faisal"));
         users.add(new User("Bassel faisal"));
         users.add(new User("eslam faisal"));

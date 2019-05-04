@@ -7,10 +7,11 @@
     android:orientation="vertical">
 
     <ProgressBar
-        android:layout_margin="@dimen/_8sdp"
-        android:layout_width="@dimen/_50sdp"
         android:id="@+id/progress_bar"
-        android:layout_height="@dimen/_40sdp"
-        android:layout_gravity="center"/>
+        style="@style/Widget.AppCompat.ProgressBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/spacing_middle"
+        android:indeterminate="true" />
 
 </LinearLayout>

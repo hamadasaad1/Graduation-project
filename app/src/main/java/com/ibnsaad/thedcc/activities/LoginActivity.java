@@ -28,7 +28,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class LoginActivity extends AppCompatActivity implements ConnectivityListener {
+public class LoginActivity extends AppCompatActivity  {
 
     private static final String TAG = "LoginActivity";
 
@@ -57,7 +57,6 @@ public class LoginActivity extends AppCompatActivity implements ConnectivityList
         rootView = findViewById(R.id.root_view);
         progress = findViewById(R.id.progress);
         setListeners();
-        connectivity = new Connectivity(this, this);
     }
 
     public void initToolbar() {
@@ -116,24 +115,26 @@ public class LoginActivity extends AppCompatActivity implements ConnectivityList
         BaseClient.getApi().logIn(jsonObject1).enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                if (response.body() != null) {
+                    Log.d(TAG, "onResponse: "+response.body().toString());
+                    startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                    finish();
+                }else {
+                    hideProgress();
+                    noInternetDialog = Dialogs.getInstance().showWorningDialog(LoginActivity.this, response.toString());
+                    Log.d(TAG, "onResponse: body is null");
+                }
 
-                startActivity(new Intent(LoginActivity.this, HomeActivity.class));
             }
 
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
-                startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                noInternetDialog = Dialogs.getInstance().showWorningDialog(LoginActivity.this, t.getMessage());
                 Log.d(TAG, "onFailure: " + t.getMessage());
             }
         });
     }
 
-    @Override
-    public void getConnectionType(String connectionType) {
-
-    }
-
-    @Override
     public void isConnected(boolean isConnected) {
 
         if (worningDialog != null) {

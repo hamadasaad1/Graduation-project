@@ -11,8 +11,7 @@ import android.widget.TextView;
 
 import com.ibnsaad.thedcc.R;
 import com.ibnsaad.thedcc.model.User;
-import com.ibnsaad.thedcc.utils.Tools;
-import com.ibnsaad.thedcc.widget.ViewLoadingDotsGrow;
+import com.ibnsaad.thedcc.utils.ItemAnimation;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
 import java.util.ArrayList;
@@ -30,6 +29,9 @@ public class UsersAdapterGridScrollProgress extends RecyclerView.Adapter<Recycle
 
     private Context ctx;
     private OnItemClickListener mOnItemClickListener;
+    private int animation_type = 1;
+    private int lastPosition = -1;
+    private boolean on_attach = true;
 
     public UsersAdapterGridScrollProgress(Context context, int item_per_display, List<User> items) {
         this.items = items;
@@ -69,10 +71,18 @@ public class UsersAdapterGridScrollProgress extends RecyclerView.Adapter<Recycle
                 }
             });
             view.user_name.setText(s.getKnownAs());
+            setAnimation(view.itemView, position);
         } else {
+            ((ProgressViewHolder) holder).progress_bar.setIndeterminate(true);
 
         }
-
+        if (s.progress) {
+            StaggeredGridLayoutManager.LayoutParams layoutParams = (StaggeredGridLayoutManager.LayoutParams) holder.itemView.getLayoutParams();
+            layoutParams.setFullSpan(true);
+        } else {
+            StaggeredGridLayoutManager.LayoutParams layoutParams = (StaggeredGridLayoutManager.LayoutParams) holder.itemView.getLayoutParams();
+            layoutParams.setFullSpan(false);
+        }
     }
 
     @Override
@@ -87,6 +97,13 @@ public class UsersAdapterGridScrollProgress extends RecyclerView.Adapter<Recycle
 
     @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                on_attach = false;
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+        });
         lastItemViewDetector(recyclerView);
         super.onAttachedToRecyclerView(recyclerView);
     }
@@ -152,9 +169,17 @@ public class UsersAdapterGridScrollProgress extends RecyclerView.Adapter<Recycle
         return last_idx;
     }
 
+    private void setAnimation(View view, int position) {
+        if (position > lastPosition) {
+            ItemAnimation.animate(view, on_attach ? position : -1, animation_type);
+            lastPosition = position;
+        }
+    }
+
     public interface OnItemClickListener {
         void onItemClick(View view, User obj, int position);
     }
+
 
     public interface OnLoadMoreListener {
         void onLoadMore(int current_page);
@@ -165,7 +190,7 @@ public class UsersAdapterGridScrollProgress extends RecyclerView.Adapter<Recycle
 
         public ProgressViewHolder(View v) {
             super(v);
-            progress_bar =  v.findViewById(R.id.progress_bar);
+            progress_bar = v.findViewById(R.id.progress_bar);
         }
     }
 
