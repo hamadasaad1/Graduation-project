@@ -3,6 +3,7 @@ package com.ibnsaad.thedcc.activities;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -13,12 +14,14 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.ibnsaad.thedcc.R;
 import com.ibnsaad.thedcc.adapter.UsersAdapterGridScrollProgress;
 import com.ibnsaad.thedcc.enums.Enums;
+import com.ibnsaad.thedcc.fragments.HomeFragment;
 import com.ibnsaad.thedcc.heper.SharedHelper;
 import com.ibnsaad.thedcc.model.User;
 import com.ibnsaad.thedcc.utils.Tools;
@@ -43,7 +46,11 @@ public class HomeActivity extends SplashActivity {
         setContentView(R.layout.activity_home);
         initToolbar();
         initNavigationMenu();
-        initComponent();
+       // initComponent();
+
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.fragment, HomeFragment.getInstance());
+        ft.commit();
     }
 
     private void initToolbar() {
@@ -64,6 +71,7 @@ public class HomeActivity extends SplashActivity {
                 super.onDrawerOpened(drawerView);
             }
         };
+
         drawer.setDrawerListener(toggle);
         toggle.syncState();
         nav_view.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -75,15 +83,19 @@ public class HomeActivity extends SplashActivity {
                 return true;
             }
         });
-
+        nav_view.setCheckedItem(R.id.nav_home);
         View header = nav_view.getHeaderView(0);
-        SimpleDraweeView circularImageView = header.findViewById(R.id.avatar);
-        circularImageView
+        TextView userName = header.findViewById(R.id.user_name);
+        SimpleDraweeView userImage = header.findViewById(R.id.user_image);
+        userName.setText(SharedHelper.getKey(this,Enums.KnownAs.name()));
+        userImage.setImageURI(SharedHelper.getKey(this,Enums.PhotoUrl.name()));
         // open drawer at start
      //   drawer.openDrawer(GravityCompat.START);
     }
 
     private void initComponent() {
+
+
         users = new ArrayList<>();
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
