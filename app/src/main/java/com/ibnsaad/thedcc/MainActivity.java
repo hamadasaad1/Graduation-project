@@ -18,12 +18,17 @@ import com.androidnetworking.interfaces.ParsedRequestListener;
 import com.ibnsaad.thedcc.Adapter.UsersAdapter;
 import com.ibnsaad.thedcc.Model.Users;
 import com.ibnsaad.thedcc.Network.AuthHelper;
+import com.ibnsaad.thedcc.Network.RetrofitNetwork.Client;
+import com.ibnsaad.thedcc.Network.RetrofitNetwork.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -68,33 +73,53 @@ public class MainActivity extends AppCompatActivity {
 
     private void getAllUser(){
 
-        AndroidNetworking.get("http://thedccapp.com/api/Users")
-                .setTag(this)
-                .setPriority(Priority.LOW)
-                .addHeaders("Authorization", "Bearer "+mAuthHelper.getIdToken())
-                .build()
-                .getAsObjectList(Users.class, new ParsedRequestListener<List<Users>>() {
-                    @Override
-                    public void onResponse(List<Users> users) {
-                        // do anything with response
-                        Log.d(TAG, "userList size : " + users.size());
-                        mUsersList =users;
-                        adapter=new UsersAdapter(mUsersList,getApplicationContext());
+//        AndroidNetworking.get("http://thedccapp.com/api/Users")
+//                .setTag(this)
+//                .setPriority(Priority.LOW)
+//                .addHeaders("Authorization", "Bearer "+mAuthHelper.getIdToken())
+//                .build()
+//                .getAsObjectList(Users.class, new ParsedRequestListener<List<Users>>() {
+//                    @Override
+//                    public void onResponse(List<Users> users) {
+//                        // do anything with response
+//                        Log.d(TAG, "userList size : " + users.size());
+//                        mUsersList =users;
+//                        adapter=new UsersAdapter(mUsersList,getApplicationContext());
+//                        recyclerView.setAdapter(adapter);
+//                        for (Users user : users) {
+//
+//                            Log.d(TAG, "firstname : " + user.getUsername());
+//
+//                        }
+//                    }
+//                    @Override
+//                    public void onError(ANError anError) {
+//                        // handle error
+//                        Log.d(TAG,"error"+anError.getErrorDetail());
+//                        Toast.makeText(MainActivity.this, "error"
+//                                +anError.getErrorDetail(), Toast.LENGTH_SHORT).show();
+//                    }
+//                });
+        Client client=new Client();
+        Service service=client.getClient().create(Service.class);
+        Call<List<Users>> call=service.getAllUser();
+        call.enqueue(new Callback<List<Users>>() {
+            @Override
+            public void onResponse(Call<List<Users>> call, Response<List<Users>> response) {
+                if (response.isSuccessful()) {
+                    mUsersList = response.body();
+                    adapter=new UsersAdapter(mUsersList,getApplicationContext());
                         recyclerView.setAdapter(adapter);
-                        for (Users user : users) {
+                    Toast.makeText(MainActivity.this, ""+mUsersList.size()
+                            , Toast.LENGTH_SHORT).show();
+                }
+            }
 
-                            Log.d(TAG, "firstname : " + user.getUsername());
+            @Override
+            public void onFailure(Call<List<Users>> call, Throwable t) {
 
-                        }
-                    }
-                    @Override
-                    public void onError(ANError anError) {
-                        // handle error
-                        Log.d(TAG,"error"+anError.getErrorDetail());
-                        Toast.makeText(MainActivity.this, "error"
-                                +anError.getErrorDetail(), Toast.LENGTH_SHORT).show();
-                    }
-                });
+            }
+        });
     }
 
     @Override

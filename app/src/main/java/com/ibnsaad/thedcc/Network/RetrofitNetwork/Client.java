@@ -16,10 +16,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class Client {
 
     static Context mContext;
-    public static final String BASE_URL="http://thedccapp.com/";
+    //public static final String BASE_URL="http://thedccapp.com/";
+    public static final String BASE_URL="http://10.0.3.2:5000/";
     public static Retrofit retrofit=null;
      static AuthHelper mAuthHelper=AuthHelper.getInstance(mContext);
-    static OkHttpClient client = new OkHttpClient.Builder().addInterceptor(new Interceptor() {
+
+    static OkHttpClient client = new OkHttpClient.Builder()
+            .addInterceptor(new Interceptor() {
         @Override
         public Response intercept(Chain chain) throws IOException {
             Request newRequest  = chain.request().newBuilder()

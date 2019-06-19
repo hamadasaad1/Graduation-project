@@ -16,14 +16,26 @@ import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
+import com.google.gson.JsonObject;
+import com.ibnsaad.thedcc.Model.TokenResponse;
+import com.ibnsaad.thedcc.Model.Users;
 import com.ibnsaad.thedcc.Network.AuthHelper;
+import com.ibnsaad.thedcc.Network.RetrofitNetwork.Client;
+import com.ibnsaad.thedcc.Network.RetrofitNetwork.Service;
 import com.ibnsaad.thedcc.Network.Token;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -173,43 +185,83 @@ public class LoginActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        AndroidNetworking.post("http://thedccapp.com/api/Auth/login")
-                .addJSONObjectBody(jsonObject)
-                .setTag("test")
-                .setPriority(Priority.MEDIUM)
-                .build()
-                .getAsJSONObject(new JSONObjectRequestListener() {
-                    @Override
-                    public void onResponse(JSONObject response) {
 
-                        try {
+        JsonObject jsonObject1=new JsonObject();
+        jsonObject1.addProperty("username",userName);
+        jsonObject1.addProperty("password",password);
 
-                               String token=  response.getString("token");
-                            //Token token1= (Token) response.get("token");
-                               Log.d("username",token);
-                               JSONObject object=response.getJSONObject("user");
-                               int id=object.getInt("id");
+        Client client=new Client();
+        Service service=client.getClient().create(Service.class);
 
-                            //Log.d("id",String.valueOf(id));
-                                saveSessionDetails( token,id);
+        Call<TokenResponse> call=service.logIn(jsonObject1);
+        call.enqueue(new Callback<TokenResponse>() {
+            @Override
+            public void onResponse(Call<TokenResponse> call, Response<TokenResponse> response) {
+                if (response.isSuccessful()){
 
-                           // Toast.makeText(LoginActivity.this, ""+mAuthHelper.getId(), Toast.LENGTH_SHORT).show();
-                            Toast.makeText(LoginActivity.this, "Login done... ",
-                                    Toast.LENGTH_SHORT).show();
-                        } catch (JSONException e) {
-                            Toast.makeText(LoginActivity.this,
-                                    "JSONException "+e.getMessage(),
-                                    Toast.LENGTH_SHORT).show();
-                            e.printStackTrace();
-                        }
+                    String token=response.body().getToken();
+
+                    Toast.makeText(LoginActivity.this, "Register done "+token
+                            , Toast.LENGTH_SHORT).show();
+                    Users users=response.body().getUser();
+                    int id=users.getId();
+                    List<Users> users1=new ArrayList<>();
+                    users1.add(users);
+                    saveSessionDetails( token,id);
+                    for (Users use : users1) {
+
+                        Log.d(TAG, "firstname : " + use.getUsername());
+
                     }
+                }
+            }
 
-                    @Override
-                    public void onError(ANError anError) {
-                        Toast.makeText(LoginActivity.this, "Can't Login Now..."
-                                        +anError.getErrorBody(),
-                                Toast.LENGTH_SHORT).show();
-                    }
-                });
+            @Override
+            public void onFailure(Call<TokenResponse> call, Throwable t) {
+
+                Toast.makeText(LoginActivity.this, "try and try"
+                        , Toast.LENGTH_SHORT).show();
+            }
+        });
+        
+        
+//        AndroidNetworking.post("http://thedccapp.com/api/Auth/login")
+//                .addJSONObjectBody(jsonObject)
+//                .setTag("test")
+//                .setPriority(Priority.MEDIUM)
+//                .build()
+//                .getAsJSONObject(new JSONObjectRequestListener() {
+//                    @Override
+//                    public void onResponse(JSONObject response) {
+//
+//                        try {
+//
+//                               String token=  response.getString("token");
+//                            //TokenResponse token1= (TokenResponse) response.get("token");
+//                               Log.d("username",token);
+//                               JSONObject object=response.getJSONObject("user");
+//                               int id=object.getInt("id");
+//
+//                            //Log.d("id",String.valueOf(id));
+//                                saveSessionDetails( token,id);
+//
+//                           // Toast.makeText(LoginActivity.this, ""+mAuthHelper.getId(), Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(LoginActivity.this, "Login done... ",
+//                                    Toast.LENGTH_SHORT).show();
+//                        } catch (JSONException e) {
+//                            Toast.makeText(LoginActivity.this,
+//                                    "JSONException "+e.getMessage(),
+//                                    Toast.LENGTH_SHORT).show();
+//                            e.printStackTrace();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onError(ANError anError) {
+//                        Toast.makeText(LoginActivity.this, "Can't Login Now..."
+//                                        +anError.getErrorBody(),
+//                                Toast.LENGTH_SHORT).show();
+//                    }
+//                });
     }
 }

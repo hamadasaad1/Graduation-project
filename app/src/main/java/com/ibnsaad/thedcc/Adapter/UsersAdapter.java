@@ -75,8 +75,9 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserHolder> 
                             intent.putExtra("profile", mUsersList.get(postion).getPhotoUrl().toString());
 
                         }
-                        intent.putExtra("birthday", mUsersList.get(postion).getDateOfBirth());
-                        intent.putExtra("city", mUsersList.get(postion).getCity());
+
+                        intent.putExtra("id",mUsersList.get(postion).getId());
+
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         mContext.startActivity(intent);
                         Toast.makeText(mContext, usersCliked.getUsername()
