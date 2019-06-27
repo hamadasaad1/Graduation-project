@@ -140,6 +140,8 @@ public class MainActivity extends AppCompatActivity {
             case R.id.log_out:
                 logout();
                 return true;
+            case R.id.diagnosis:
+                startActivity(new Intent(this,DiagnosisActivity.class));
             default:
                 return super.onOptionsItemSelected(item);
         }
